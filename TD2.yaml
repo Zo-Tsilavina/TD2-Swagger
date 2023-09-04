@@ -1,0 +1,343 @@
+openapi: 3.0.0
+info:
+  title: Students and Teachers API
+  version: 1.0.0
+servers:
+  - url: http://STD22083.com
+paths:
+  /students:
+    get:
+      summary: Get student information
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                id: STD22083
+                name: Zo Tsilavina
+                age: 18
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+    post:
+      summary: Add Student
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Zo Tsilavina
+                age:
+                  type: integer
+                  example: 18
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Student added successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+    /students/{studentId}:
+    put:
+      summary: Update student
+      parameters:
+        - name: studentId
+          in: path
+          description: Student id to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Zo Tsilavina
+                age:
+                  type: int
+                  example: 18
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Student updated successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+    delete:
+      summary: Delete Student
+      parameters:
+        - name: studentId
+          in: path
+          description: Student id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Student deleted successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+  /pets/{petId}:
+    put:
+      tags:
+        - pet
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: updatePet
+      parameters:
+        - name: petId
+          in: path
+          description: Pet id to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existing pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security: []  # Remove the petstore_auth security requirement for this operation
+
+  /teachers:
+    get:
+      summary: Get teacher information
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                - first_name: Toky
+                  last_name: Ramarozaka
+                  courses:
+                    - Prog1
+                    - Web1
+
+                - first_name: Harry
+                  last_name: Rakotondratombo
+                  courses:
+                    - Sys1
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+    post:
+      summary: Add Teacher
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: Tokimahery
+                last_name:
+                  type: string
+                  example: Ramarozaka
+                courses:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - Prog2
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Teacher added successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+  /teachers/{teacherId}:
+    put:
+      summary: Update Teacher
+      parameters:
+        - name: teacherId
+          in: path
+          description: Teacher id to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: Harry
+                last_name:
+                  type: string
+                  example: Harry
+                courses:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - Sys2
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Teacher updated successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+    delete:
+      summary: Delete Teacher
+      parameters:
+        - name: teacherId
+          in: path
+          description: Teacher id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response, OK
+          content:
+            application/json:
+              example:
+                message: Teacher deleted successfully
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              example:
+                message: An error occurred
+
+  /pets/{petId}:
+    put:
+      tags:
+        - pet
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: updatePet
+      parameters:
+        - name: petId
+          in: path
+          description: Pet id to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existing pet in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security: []  # Remove the petstore_auth security requirement for this operation
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
